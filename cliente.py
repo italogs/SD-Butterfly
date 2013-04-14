@@ -23,7 +23,7 @@ class Client(object):
       self.sum = self.sumAux;
       if(int(self.id) >= int(half)):
         #       EnviE (somapar para elemento (id-metade));
-        udp.sendto (str(self.sumAux), (HOST,int(listClients[self.id - half ])));
+        udp.sendto (str(self.sumAux), (HOST,int(listClients[self.id - half])));
       elif (int(self.id) != 0):
         sumTemp, serverAdress = udp.recvfrom(1024);
         self.sumAux = int(sumTemp);

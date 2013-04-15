@@ -12,6 +12,7 @@ def buscarId(enderecoClientes,enderecoOrigem):
 HOST = socket.gethostbyname(socket.gethostname());
 PORT = 5000;
 udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM);
+
 orig = (HOST, PORT);
 udp.bind(orig);
 id = 0;
@@ -19,6 +20,7 @@ id = 0;
 
 
 print 'Programa Somador de 0 ate N - Utilizando Algoritmo BUTTERFLY\n\n'
+print 'Endereco deste Servidor: ',orig,'\n';
 print 'Entre com o numero de processadores que vao se conectar';
 N = int(raw_input());
 N = N + 1;#SOMANDO MAIS 1 COM O MESTRE
@@ -36,20 +38,31 @@ while conectados < int(N) - 1:
 	print conectados,' conectados';
 print 'Clientes conectados com sucesso...\nID ',id,' registrado.\n\n';
 
-print 'Entre com o numero a ser feito o seu somatorio';
-numero = int(raw_input());
+concatEnderecolistClients = [];
+concatPortaslistClients = [];
 
-concatlistClients = [];
 for i in enderecoClientes:
-	concatlistClients.append(str(i[1]));
-concatText = "-".join(concatlistClients);
+	concatEnderecolistClients.append(str(i[0]));
+	concatPortaslistClients.append(str(i[1]));
+
+concatTextEndereco = "-".join(concatEnderecolistClients);
+concatTextPortas = "-".join(concatPortaslistClients);
 
 i = 1;
 while  i <= N - 1:
 	udp.sendto (str(i), enderecoClientes[i]);
+	i = i + 1;
+
+
+print 'Entre com o numero a ser feito o seu somatorio';
+numero = int(raw_input());
+
+i = 1;
+while  i <= N - 1:
 	udp.sendto (str(numero), enderecoClientes[i]);
 	udp.sendto (str(N), enderecoClientes[i]);
-	udp.sendto (str(concatText), enderecoClientes[i]);
+	udp.sendto (str(concatTextEndereco), enderecoClientes[i]);
+	udp.sendto (str(concatTextPortas), enderecoClientes[i]);
 	i = i + 1;
 
 somatorio =0;

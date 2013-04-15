@@ -12,8 +12,13 @@ def buscarId(enderecoClientes,enderecoOrigem):
 	return -1;
 
 
-HOST = '127.0.0.1';
-PORT = 5000;
+print 'Entre com o Endereco do Servidor:';
+HOST = raw_input();
+
+print 'porta:';
+PORT = int(raw_input());
+#HOST = '127.0.0.1';
+#PORT = 5000;
 udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM);
 dest = (HOST, PORT);
 udp.sendto ('Conectado com Sucesso', dest);
@@ -21,11 +26,19 @@ serverAdress = [];
 print 'Aguardando resposta do servidor....';
 id, serverAdress = udp.recvfrom(1024);
 id = int(id);
+print 'Conectado com sucesso.';
 
+print 'Meus detalhes:';
+print 'ID: ',id;
+
+print 'Esperando pelo numero do servidor';
 
 numero, serverAdress = udp.recvfrom(1024);
 N, serverAdress = udp.recvfrom(1024);
-concatListClients, serverAdress = udp.recvfrom(1024);
+concatListClientsEndereco, serverAdress = udp.recvfrom(1024);
+concatListClientsPortas, serverAdress = udp.recvfrom(1024);
+
+
 
 
 numero = int(numero);
@@ -33,14 +46,16 @@ N = int(N);
 
 
 enderecoClientes = [];
+concatListClientsEndereco = concatListClientsEndereco.split('-');
+concatListClientsPortas = concatListClientsPortas.split('-');
 
-concatListClients = concatListClients.split('-');
-for i in concatListClients:
-	enderecoClientes.append((HOST,int(i)));
-print 'Meus detalhes:';
-print 'ID: ',id;
-print 'Endereco',enderecoClientes[id];
+tam = len(concatListClientsEndereco);
+i =0;
+while i < tam:
+	enderecoClientes.append((concatListClientsEndereco[i],int(concatListClientsPortas[i])));
+	i = i + 1;
 
+print 'Meu IP: ',enderecoClientes[id];
 
 somapar = 0;
 parcela = int(numero/N);

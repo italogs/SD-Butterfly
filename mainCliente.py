@@ -23,7 +23,7 @@ udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM);
 dest = (HOST, PORT);
 udp.sendto ('Conectado com Sucesso', dest);
 serverAdress = [];
-print 'Aguardando resposta do servidor....';
+print 'Aguardando todos se conectarem ao servidor....';
 id, serverAdress = udp.recvfrom(1024);
 id = int(id);
 print 'Conectado com sucesso.';
@@ -59,8 +59,11 @@ print 'Meu IP: ',enderecoClientes[id];
 
 somapar = 0;
 parcela = int(numero/N);
-inicio = parcela * id ;
-fim = (parcela * id) + 1;
+#inicio = parcela * id ;
+#fim = (parcela * id) + 1;
+
+inicio = id * parcela + 1;
+fim = (id + 1)* parcela;
 
 i = inicio;
 while i <= fim:

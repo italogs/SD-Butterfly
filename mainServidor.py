@@ -67,8 +67,10 @@ while  i <= N - 1:
 
 somatorio =0;
 parcela = int(int(numero)/N);
-inicio = parcela * id ;
-fim = (parcela * id ) +1;
+inicio = id * parcela + 1;
+fim = (id + 1)* parcela;
+#inicio = parcela * id ;
+#fim = (parcela * id ) +1;
 i = inicio;
 while i <= fim:
 	somatorio = somatorio + i;
